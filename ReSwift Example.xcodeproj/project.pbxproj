@@ -8,22 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		1F7534A71E30B4D9003BC0E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534A61E30B4D9003BC0E1 /* AppDelegate.swift */; };
-		1F7534A91E30B4D9003BC0E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534A81E30B4D9003BC0E1 /* ViewController.swift */; };
 		1F7534AC1E30B4D9003BC0E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AA1E30B4D9003BC0E1 /* Main.storyboard */; };
 		1F7534AE1E30B4D9003BC0E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */; };
 		1F7534B11E30B4D9003BC0E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AF1E30B4D9003BC0E1 /* LaunchScreen.storyboard */; };
 		1F7534C71E30B973003BC0E1 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7534C61E30B973003BC0E1 /* ReSwift.framework */; };
+		1F7534C91E30BA5B003BC0E1 /* GreetingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */; };
+		1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CA1E30C573003BC0E1 /* AppState.swift */; };
+		1F7534D01E30CA98003BC0E1 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */; };
+		1F7534D11E30CA98003BC0E1 /* GreetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */; };
+		1F7534D31E30CC9A003BC0E1 /* GreetingModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */; };
+		1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D41E30DD23003BC0E1 /* AppReducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F7534A31E30B4D9003BC0E1 /* ReSwift Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ReSwift Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7534A61E30B4D9003BC0E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F7534A81E30B4D9003BC0E1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1F7534AB1E30B4D9003BC0E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F7534B01E30B4D9003BC0E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F7534B21E30B4D9003BC0E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F7534C61E30B973003BC0E1 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
+		1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingPresenter.swift; sourceTree = "<group>"; };
+		1F7534CA1E30C573003BC0E1 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
+		1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController.xib; sourceTree = "<group>"; };
+		1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingModuleFactory.swift; sourceTree = "<group>"; };
+		1F7534D41E30DD23003BC0E1 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,11 +69,16 @@
 			isa = PBXGroup;
 			children = (
 				1F7534A61E30B4D9003BC0E1 /* AppDelegate.swift */,
-				1F7534A81E30B4D9003BC0E1 /* ViewController.swift */,
 				1F7534AA1E30B4D9003BC0E1 /* Main.storyboard */,
 				1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */,
 				1F7534AF1E30B4D9003BC0E1 /* LaunchScreen.storyboard */,
 				1F7534B21E30B4D9003BC0E1 /* Info.plist */,
+				1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */,
+				1F7534CA1E30C573003BC0E1 /* AppState.swift */,
+				1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */,
+				1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */,
+				1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */,
+				1F7534D41E30DD23003BC0E1 /* AppReducer.swift */,
 			);
 			path = "ReSwift Example";
 			sourceTree = "<group>";
@@ -140,6 +155,7 @@
 				1F7534B11E30B4D9003BC0E1 /* LaunchScreen.storyboard in Resources */,
 				1F7534AE1E30B4D9003BC0E1 /* Assets.xcassets in Resources */,
 				1F7534AC1E30B4D9003BC0E1 /* Main.storyboard in Resources */,
+				1F7534D11E30CA98003BC0E1 /* GreetingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,8 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F7534A91E30B4D9003BC0E1 /* ViewController.swift in Sources */,
+				1F7534C91E30BA5B003BC0E1 /* GreetingPresenter.swift in Sources */,
 				1F7534A71E30B4D9003BC0E1 /* AppDelegate.swift in Sources */,
+				1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */,
+				1F7534D31E30CC9A003BC0E1 /* GreetingModuleFactory.swift in Sources */,
+				1F7534D01E30CA98003BC0E1 /* GreetingViewController.swift in Sources */,
+				1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
