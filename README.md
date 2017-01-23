@@ -11,3 +11,5 @@ This project show the issue of Presenter getting deallocated because their is no
 - The View show "Label"
 - Tap on "Say hi!"
 - Nothing happen
+
+To fix the issue, you can uncomment the line in `GreetingModuleFactory.swift` that pass the presenter to the view controller.
