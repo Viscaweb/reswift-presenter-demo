@@ -15,6 +15,7 @@ class GreetingPresenter {
 
     deinit {
         print("Presenter deallocated")
+        store.unsubscribe(self)
     }
     
 }

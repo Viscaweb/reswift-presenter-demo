@@ -21,8 +21,6 @@ protocol GreetingView: class {
 }
 
 class GreetingViewController: UIViewController {
-    var presenter: GreetingPresenter!
-
     private let store: DefaultStore
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var greetingButton: UIButton!
