@@ -16,7 +16,7 @@
 		1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CA1E30C573003BC0E1 /* AppState.swift */; };
 		1F7534D01E30CA98003BC0E1 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */; };
 		1F7534D11E30CA98003BC0E1 /* GreetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */; };
-		1F7534D31E30CC9A003BC0E1 /* GreetingModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */; };
+		1F7534D31E30CC9A003BC0E1 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D21E30CC9A003BC0E1 /* ModuleFactory.swift */; };
 		1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D41E30DD23003BC0E1 /* AppReducer.swift */; };
 		5090E5341E389A15000C19FB /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5090E5331E389A15000C19FB /* ReSwiftRouter.framework */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,7 @@
 		1F7534CA1E30C573003BC0E1 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingViewController.swift; sourceTree = "<group>"; };
 		1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController.xib; sourceTree = "<group>"; };
-		1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingModuleFactory.swift; sourceTree = "<group>"; };
+		1F7534D21E30CC9A003BC0E1 /* ModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		1F7534D41E30DD23003BC0E1 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		5090E5331E389A15000C19FB /* ReSwiftRouter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwiftRouter.framework; path = Carthage/Build/iOS/ReSwiftRouter.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,11 +76,9 @@
 				1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */,
 				1F7534AF1E30B4D9003BC0E1 /* LaunchScreen.storyboard */,
 				1F7534B21E30B4D9003BC0E1 /* Info.plist */,
-				1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */,
+				1F7534D21E30CC9A003BC0E1 /* ModuleFactory.swift */,
+				5090E5351E389A60000C19FB /* Greeting Module */,
 				1F7534CA1E30C573003BC0E1 /* AppState.swift */,
-				1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */,
-				1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */,
-				1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */,
 				1F7534D41E30DD23003BC0E1 /* AppReducer.swift */,
 			);
 			path = "ReSwift Example";
@@ -93,6 +91,16 @@
 				5090E5331E389A15000C19FB /* ReSwiftRouter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5090E5351E389A60000C19FB /* Greeting Module */ = {
+			isa = PBXGroup;
+			children = (
+				1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */,
+				1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */,
+				1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */,
+			);
+			name = "Greeting Module";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,7 +200,7 @@
 				1F7534C91E30BA5B003BC0E1 /* GreetingPresenter.swift in Sources */,
 				1F7534A71E30B4D9003BC0E1 /* AppDelegate.swift in Sources */,
 				1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */,
-				1F7534D31E30CC9A003BC0E1 /* GreetingModuleFactory.swift in Sources */,
+				1F7534D31E30CC9A003BC0E1 /* ModuleFactory.swift in Sources */,
 				1F7534D01E30CA98003BC0E1 /* GreetingViewController.swift in Sources */,
 				1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */,
 			);

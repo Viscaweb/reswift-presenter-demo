@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let store = Store(reducer: AppReducer(), state: AppState(alreadyGreeted: false))
-        let factory = GreetingModuleFactory()
-        window?.rootViewController = factory.viewController(store: store)
+        window?.rootViewController = ModuleFactory.greeting(store: store)
         window?.makeKeyAndVisible()
 
         return true
