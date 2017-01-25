@@ -24,6 +24,7 @@
 		5090E53E1E38A064000C19FB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E53C1E38A064000C19FB /* RootViewController.swift */; };
 		5090E53F1E38A064000C19FB /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5090E53D1E38A064000C19FB /* RootViewController.xib */; };
 		5090E5421E38A188000C19FB /* RootModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E5411E38A188000C19FB /* RootModule.swift */; };
+		5090E5441E38A7BC000C19FB /* RouterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E5431E38A7BC000C19FB /* RouterConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		5090E53C1E38A064000C19FB /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RootViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		5090E53D1E38A064000C19FB /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		5090E5411E38A188000C19FB /* RootModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModule.swift; sourceTree = "<group>"; };
+		5090E5431E38A7BC000C19FB /* RouterConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				1F7534A61E30B4D9003BC0E1 /* AppDelegate.swift */,
+				5090E5431E38A7BC000C19FB /* RouterConfiguration.swift */,
 				1F7534AA1E30B4D9003BC0E1 /* Main.storyboard */,
 				1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */,
 				1F7534AF1E30B4D9003BC0E1 /* LaunchScreen.storyboard */,
@@ -231,6 +234,7 @@
 				1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */,
 				5090E53B1E38A02B000C19FB /* LoggingMiddleware.swift in Sources */,
 				5090E5421E38A188000C19FB /* RootModule.swift in Sources */,
+				5090E5441E38A7BC000C19FB /* RouterConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
