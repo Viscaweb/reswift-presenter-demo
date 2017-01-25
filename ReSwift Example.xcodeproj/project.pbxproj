@@ -18,6 +18,7 @@
 		1F7534D11E30CA98003BC0E1 /* GreetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */; };
 		1F7534D31E30CC9A003BC0E1 /* GreetingModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */; };
 		1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D41E30DD23003BC0E1 /* AppReducer.swift */; };
+		5090E5341E389A15000C19FB /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5090E5331E389A15000C19FB /* ReSwiftRouter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController.xib; sourceTree = "<group>"; };
 		1F7534D21E30CC9A003BC0E1 /* GreetingModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingModuleFactory.swift; sourceTree = "<group>"; };
 		1F7534D41E30DD23003BC0E1 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		5090E5331E389A15000C19FB /* ReSwiftRouter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwiftRouter.framework; path = Carthage/Build/iOS/ReSwiftRouter.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5090E5341E389A15000C19FB /* ReSwiftRouter.framework in Frameworks */,
 				1F7534C71E30B973003BC0E1 /* ReSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				1F7534C61E30B973003BC0E1 /* ReSwift.framework */,
+				5090E5331E389A15000C19FB /* ReSwiftRouter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -124,7 +128,7 @@
 				TargetAttributes = {
 					1F7534A21E30B4D9003BC0E1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = E64693JL9W;
+						DevelopmentTeam = FRMDA3XRGC;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -169,6 +173,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ReSwiftRouter.framework",
 			);
 			name = "[Carthage] Copy frameworks";
 			outputPaths = (
@@ -312,7 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E64693JL9W;
+				DEVELOPMENT_TEAM = FRMDA3XRGC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -329,7 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E64693JL9W;
+				DEVELOPMENT_TEAM = FRMDA3XRGC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
