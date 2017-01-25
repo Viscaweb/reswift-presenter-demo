@@ -2,6 +2,8 @@ import Foundation
 import ReSwift
 import ReSwiftRouter
 
+typealias DefaultStore = Store<AppState>
+
 struct AppState: StateType {
 
     var alreadyGreeted: Bool

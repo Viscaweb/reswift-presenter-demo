@@ -9,6 +9,8 @@ struct AppReducer: Reducer {
         
         var state = state ?? AppState(alreadyGreeted: false, navigationState: NavigationState())
 
+        state.navigationState = NavigationReducer.handleAction(action, state: state.navigationState)
+        
         switch action {
         case _ as ViewDidLoadAction:
             state.alreadyGreeted = false

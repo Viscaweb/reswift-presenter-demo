@@ -4,9 +4,9 @@ import ReSwift
 
 class GreetingPresenter {
     fileprivate weak var view: GreetingView!
-    private let store: Store<AppState>
+    private let store: DefaultStore
     
-    init(view: GreetingView, store: Store<AppState>) {
+    init(view: GreetingView, store: DefaultStore) {
         self.view = view
         self.store = store
         
