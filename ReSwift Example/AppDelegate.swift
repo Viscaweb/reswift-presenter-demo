@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let initialState = AppState(alreadyGreeted: false, navigationState: NavigationState())
-        let store = Store(reducer: AppReducer(), state: initialState)
         let module = ModuleFactory.greeting(store: store)
         router = Router(store: store, rootRoutable: module) { state in
+        let store = Store(reducer: AppReducer(), state: initialState, middleware: [loggingMiddleware])
             state.navigationState
         }
 
