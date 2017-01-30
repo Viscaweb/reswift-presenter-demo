@@ -1,15 +1,33 @@
-This project show the issue of Presenter getting deallocated because their is not strong reference to it.
+# Strong reference to Presenter
 
-### Expecting behaviour
+### Problem
 
-- The View show "Hi!"
-- Tap on "Say hi!"
-- The View show "Bye!"
+The `Presenter` subscribe to the `Store`. 
+The `Store` then keep a reference to the `Presenter` 
+in order to notify it when the `AppState` has changed.
+However this is a weak reference.
+We need to keep a strong reference to the `Presenter` somewhere.
 
-### Actual behaviour
+### Solution
 
-- The View show "Label"
-- Tap on "Say hi!"
-- Nothing happen
+Rely on the `ReSwiftRouter` that keep a collection of `Routable` 
+while having the `Routable` implemented by 
+our module routers (Ex: [RootModule](https://github.com/Viscaweb/reswift-presenter-demo/blob/master/ReSwift%20Example/RootModule.swift)).
+These module routers have a strong reference to both the `Presenter` and the `ViewController`.
 
-To fix the issue, you can uncomment the line in `GreetingModuleFactory.swift` that pass the presenter to the view controller.
+
+# UIKit lifecycle & ReSwift
+
+### Problem
+
+The `Presenter` subscribe to the `Store`.
+The `Presenter` will be notified by the `Store` about the `AppState`.
+However the `Presenter` does not know the current state of the `ViewController`.
+Maybe the `ViewController` has not each the `viewDidLoad` state.
+
+### Solution
+
+The `ViewController` could have a public `state` property of `ViewModel` type that
+the `Presenter` will change. The `ViewController` will be responsible of observing both
+this `state` property and also the `viewLoaded` property. Whenever `state` change and `viewLoaded`
+is true, then the render of the view should happen.
