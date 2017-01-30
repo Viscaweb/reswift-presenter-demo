@@ -1,23 +1,24 @@
-
 import Foundation
 import ReSwift
+import ReSwiftRouter
 
 struct AppReducer: Reducer {
     typealias ReducerStateType = AppState
     
     public func handleAction(action: Action, state: AppState?) -> AppState {
         
-        guard let state = state else {
-            return AppState(alreadyGreeted: false)
-        }
+        var state = state ?? AppState(alreadyGreeted: false, navigationState: NavigationState())
 
+        state.navigationState = NavigationReducer.handleAction(action, state: state.navigationState)
+        
         switch action {
         case _ as ViewDidLoadAction:
-            return AppState(alreadyGreeted: false)
+            state.alreadyGreeted = false
         case _ as ToggleGreetingAction:
-            return AppState(alreadyGreeted: !state.alreadyGreeted)
-        default:
-            return state
+            state.alreadyGreeted = !state.alreadyGreeted
+        default: break
         }
+
+        return state
     }
 }
