@@ -8,22 +8,26 @@
 
 import UIKit
 import ReSwift
+import ReSwiftRouter
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var routerConfiguration: RouterConfiguration!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let store = Store(reducer: AppReducer(), state: AppState(alreadyGreeted: false))
-        let factory = GreetingModuleFactory()
-        window?.rootViewController = factory.viewController(store: store)
-        window?.makeKeyAndVisible()
+        let window = UIWindow(frame: UIScreen.main.bounds)
 
+        let initialState = AppState(alreadyGreeted: false, navigationState: NavigationState())
+        let store = Store(reducer: AppReducer(), state: initialState, middleware: [loggingMiddleware])
+        routerConfiguration = RouterConfiguration(store: store)
+
+        routerConfiguration.setup(window: window)
+        window.makeKeyAndVisible()
+
+        self.window = window
         return true
     }
 

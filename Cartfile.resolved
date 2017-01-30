@@ -1,1 +1,2 @@
 github "ReSwift/ReSwift" "3.0.0"
+github "dagio/ReSwift-Router" "0.5.1"

@@ -21,15 +21,13 @@ protocol GreetingView: class {
 }
 
 class GreetingViewController: UIViewController {
-    var presenter: GreetingPresenter!
-
-    private let store: Store<AppState>
+    private let store: DefaultStore
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var greetingButton: UIButton!
     
     fileprivate var toggleGreetingAction: Action?
     
-    init(store: Store<AppState>) {
+    init(store: DefaultStore) {
         self.store = store
         super.init(nibName: "GreetingViewController", bundle: Bundle(for: GreetingViewController.self))
     }
