@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:ReSwift Example/../ConfigurableView.playground">
+   </FileRef>
+   <FileRef
+      location = "group:ReSwift Example.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/ReSwift/ReSwift.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/ReSwift-Router/ReSwiftRouter.xcodeproj">
+   </FileRef>
+</Workspace>

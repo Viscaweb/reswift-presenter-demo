@@ -11,14 +11,14 @@
 		1F7534AC1E30B4D9003BC0E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AA1E30B4D9003BC0E1 /* Main.storyboard */; };
 		1F7534AE1E30B4D9003BC0E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AD1E30B4D9003BC0E1 /* Assets.xcassets */; };
 		1F7534B11E30B4D9003BC0E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534AF1E30B4D9003BC0E1 /* LaunchScreen.storyboard */; };
-		1F7534C71E30B973003BC0E1 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7534C61E30B973003BC0E1 /* ReSwift.framework */; };
 		1F7534C91E30BA5B003BC0E1 /* GreetingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534C81E30BA5B003BC0E1 /* GreetingPresenter.swift */; };
 		1F7534CB1E30C573003BC0E1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CA1E30C573003BC0E1 /* AppState.swift */; };
 		1F7534D01E30CA98003BC0E1 /* GreetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534CE1E30CA98003BC0E1 /* GreetingViewController.swift */; };
 		1F7534D11E30CA98003BC0E1 /* GreetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */; };
 		1F7534D31E30CC9A003BC0E1 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D21E30CC9A003BC0E1 /* ModuleFactory.swift */; };
 		1F7534D51E30DD23003BC0E1 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7534D41E30DD23003BC0E1 /* AppReducer.swift */; };
-		5090E5341E389A15000C19FB /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5090E5331E389A15000C19FB /* ReSwiftRouter.framework */; };
+		3CCC0D721E4105CA00E418D2 /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CCC0D711E4105CA00E418D2 /* ReSwift.framework */; };
+		3CCC0D741E4105D100E418D2 /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CCC0D731E4105D100E418D2 /* ReSwiftRouter.framework */; };
 		5090E5391E389B58000C19FB /* GreetingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E5381E389B58000C19FB /* GreetingModule.swift */; };
 		5090E53B1E38A02B000C19FB /* LoggingMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E53A1E38A02B000C19FB /* LoggingMiddleware.swift */; };
 		5090E53E1E38A064000C19FB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090E53C1E38A064000C19FB /* RootViewController.swift */; };
@@ -41,6 +41,9 @@
 		1F7534CF1E30CA98003BC0E1 /* GreetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController.xib; sourceTree = "<group>"; };
 		1F7534D21E30CC9A003BC0E1 /* ModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ModuleFactory.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1F7534D41E30DD23003BC0E1 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		3CCC0D401E41014500E418D2 /* ConfigurableView.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ConfigurableView.playground; path = ../ConfigurableView.playground; sourceTree = "<group>"; };
+		3CCC0D711E4105CA00E418D2 /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = "../../../../../Users/damiengavard/Library/Developer/Xcode/DerivedData/ReSwift_Example-ftzikvshwgvoykedshmxredudgor/Build/Products/Debug-iphonesimulator/ReSwift.framework"; sourceTree = "<group>"; };
+		3CCC0D731E4105D100E418D2 /* ReSwiftRouter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwiftRouter.framework; path = "Carthage/Checkouts/ReSwift-Router/build/Debug-iphoneos/ReSwiftRouter.framework"; sourceTree = "<group>"; };
 		5090E5331E389A15000C19FB /* ReSwiftRouter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwiftRouter.framework; path = Carthage/Build/iOS/ReSwiftRouter.framework; sourceTree = "<group>"; };
 		5090E5381E389B58000C19FB /* GreetingModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingModule.swift; sourceTree = "<group>"; };
 		5090E53A1E38A02B000C19FB /* LoggingMiddleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingMiddleware.swift; sourceTree = "<group>"; };
@@ -55,8 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5090E5341E389A15000C19FB /* ReSwiftRouter.framework in Frameworks */,
-				1F7534C71E30B973003BC0E1 /* ReSwift.framework in Frameworks */,
+				3CCC0D741E4105D100E418D2 /* ReSwiftRouter.framework in Frameworks */,
+				3CCC0D721E4105CA00E418D2 /* ReSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +86,7 @@
 		1F7534A51E30B4D9003BC0E1 /* ReSwift Example */ = {
 			isa = PBXGroup;
 			children = (
+				3CCC0D401E41014500E418D2 /* ConfigurableView.playground */,
 				1F7534A61E30B4D9003BC0E1 /* AppDelegate.swift */,
 				5090E5431E38A7BC000C19FB /* RouterConfiguration.swift */,
 				1F7534AA1E30B4D9003BC0E1 /* Main.storyboard */,
@@ -102,6 +106,8 @@
 		1F7534B81E30B5BD003BC0E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CCC0D731E4105D100E418D2 /* ReSwiftRouter.framework */,
+				3CCC0D711E4105CA00E418D2 /* ReSwift.framework */,
 				1F7534C61E30B973003BC0E1 /* ReSwift.framework */,
 				5090E5331E389A15000C19FB /* ReSwiftRouter.framework */,
 			);
@@ -361,6 +367,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/ReSwift-Router/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = "ReSwift Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -378,6 +385,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/ReSwift-Router/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = "ReSwift Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
