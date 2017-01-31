@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
 
         let initialState = AppState(alreadyGreeted: false, navigationState: NavigationState())
-        let store = Store(reducer: AppReducer(), state: initialState, middleware: [loggingMiddleware])
+        let store = Store(reducer: appReducer, state: initialState, middleware: [loggingMiddleware])
         routerConfiguration = RouterConfiguration(store: store)
 
         routerConfiguration.setup(window: window)
