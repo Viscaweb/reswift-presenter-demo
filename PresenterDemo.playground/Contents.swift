@@ -1,6 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import PlaygroundSupport
 import ReSwift
 
 
@@ -21,10 +22,10 @@ protocol Presenter {
 // VIEW CONTROLLER
 // ----------------------------------------------------------------------
 
-protocol ViewType {
+protocol ViewType: class {
     associatedtype ViewModelType
 
-    mutating func update(with viewModel: ViewModelType) // Presenter call this one
+    func update(with viewModel: ViewModelType)
 }
 
 protocol ConfigurableView: ViewType {
@@ -34,7 +35,10 @@ protocol ConfigurableView: ViewType {
 }
 
 extension ConfigurableView where Self: UIViewController {
-    mutating func update(with viewModel: ViewModelType) { // Implement ViewType
+
+    func update(with viewModel: ViewModelType) {
+        print("> ConfigurableView: update")
+
         self.viewModel = viewModel
 
         guard isViewLoaded else {
@@ -53,12 +57,19 @@ extension ConfigurableView where Self: UIViewController {
 struct MatchCalendarState {}
 struct MatchCalendarViewModel {}
 
-class MatchCalendarPresenter: Presenter {
+class MatchCalendarPresenter: Presenter, StoreSubscriber {
 
     var view: ((MatchCalendarViewModel) -> ())?
 
     func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
         return MatchCalendarViewModel()
+    }
+
+    func newState(state: AppState) {
+        print("> Presenter: newState")
+
+        let viewModel = MatchCalendarViewModel()
+        view!(viewModel)
     }
 }
 
@@ -68,8 +79,38 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 
     internal var viewModel: MatchCalendarViewModel?
 
+    override func viewDidLoad() {
+        print("> ViewController: viewDidload")
+
+        super.viewDidLoad()
+
+        view.frame = CGRect(
+            x: 0, y: 0, width: 320, height: 480)
+        view.backgroundColor = .blue
+    }
+
     func configureView() {
+        print("> ViewController: configureView")
+
         // Pending implementation ...
+    }
+}
+
+class MatchCalendarFactory {
+
+    typealias MatchCalendarModule = (
+        presenter: MatchCalendarPresenter,
+        viewController: MatchCalendarViewController
+    )
+
+    static func create(with store: Store<AppState>) -> MatchCalendarModule {
+        let presenter = MatchCalendarPresenter()
+        let viewController = MatchCalendarViewController()
+
+        presenter.view = viewController.update(with:)
+        store.subscribe(presenter)
+
+        return (presenter, viewController)
     }
 }
 
@@ -79,6 +120,8 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 // ----------------------------------------------------------------------
 
 // ReSwift stuffs -----------------------
+struct DummyAction: Action {}
+
 struct AppState: StateType {
     let calendar: MatchCalendarState
 }
@@ -93,18 +136,10 @@ let store = Store(reducer: appReducer, state: initialState, middleware: [])
 
 
 // View stuffs -----------------------
-
-var p = MatchCalendarPresenter()
-var vc = MatchCalendarViewController()
-
-// This is incomplete
+let module = MatchCalendarFactory.create(with: store)
+let viewController  = module.viewController
 
 
-
-
-
-
-
-
+PlaygroundPage.current.liveView = viewController
 
 
