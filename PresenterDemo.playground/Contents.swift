@@ -79,13 +79,15 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 // ----------------------------------------------------------------------
 
 // ReSwift stuffs -----------------------
-struct AppState: StateType {}
-
-func appReducer(action: Action, state: AppState?) -> AppState {
-    return AppState()
+struct AppState: StateType {
+    let calendar: MatchCalendarState
 }
 
-let initialState = AppState()
+func appReducer(action: Action, state: AppState?) -> AppState {
+    return AppState(calendar: MatchCalendarState())
+}
+
+let initialState = AppState(calendar: MatchCalendarState())
 
 let store = Store(reducer: appReducer, state: initialState, middleware: [])
 
@@ -96,4 +98,13 @@ var p = MatchCalendarPresenter()
 var vc = MatchCalendarViewController()
 
 // This is incomplete
+
+
+
+
+
+
+
+
+
 
