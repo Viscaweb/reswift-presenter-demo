@@ -1,3 +1,11 @@
+# Install
+
+Execute the following
+
+```
+carthage checkout --no-use-binaries
+```
+
 # Strong reference to Presenter
 
 ### Problem
