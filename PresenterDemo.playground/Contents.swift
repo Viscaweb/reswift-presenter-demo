@@ -86,7 +86,7 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 
         view.frame = CGRect(
             x: 0, y: 0, width: 320, height: 480)
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
     }
 
     func configureView() {
@@ -137,9 +137,8 @@ let store = Store(reducer: appReducer, state: initialState, middleware: [])
 
 // View stuffs -----------------------
 let module = MatchCalendarFactory.create(with: store)
-let viewController  = module.viewController
 
 
-PlaygroundPage.current.liveView = viewController
+PlaygroundPage.current.liveView = module.viewController
 
 
