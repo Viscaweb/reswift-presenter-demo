@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ReSwift Example/../ConfigurableView.playground">
+      location = "group:/Volumes/Develop/GitRepos/Viscaweb/reswift-presenter-demo/PresenterDemo.playground">
    </FileRef>
    <FileRef
       location = "group:ReSwift Example.xcodeproj">
