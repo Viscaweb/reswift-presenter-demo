@@ -78,6 +78,20 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 // DEMO
 // ----------------------------------------------------------------------
 
+// ReSwift stuffs -----------------------
+struct AppState: StateType {}
+
+func appReducer(action: Action, state: AppState?) -> AppState {
+    return AppState()
+}
+
+let initialState = AppState()
+
+let store = Store(reducer: appReducer, state: initialState, middleware: [])
+
+
+// View stuffs -----------------------
+
 var p = MatchCalendarPresenter()
 var vc = MatchCalendarViewController()
 
