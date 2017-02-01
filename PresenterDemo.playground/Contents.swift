@@ -13,11 +13,14 @@ protocol Presenter: StoreSubscriber {
     associatedtype ViewModel
     
     var updateView: ((ViewModel) -> ())? {get set}
+    
     func viewModel(for state: StoreSubscriberStateType) -> ViewModel
 }
 
 extension Presenter {
     func newState(state: Self.StoreSubscriberStateType) {
+        print("> Presenter: newState")
+
         updateView!(viewModel(for: state))
     }
 }
@@ -133,17 +136,18 @@ struct AppState: StateType {
     let calendar: MatchCalendarState
 }
 
-let initialState = AppState(calendar: MatchCalendarState(title: "bla"))
 func appReducer(action: Action, state: AppState?) -> AppState {
+    var title = "DEFAULT"
     if let titleAction = action as? SetTitleAction {
-        return AppState(calendar: MatchCalendarState(title: titleAction.title))
+        title = titleAction.title
     }
     
-    return initialState
+    print("> Reducer: title \(title)")
+    return AppState(calendar: MatchCalendarState(title: title))
 }
 
 
-let store = Store(reducer: appReducer, state: initialState, middleware: [])
+let store = Store(reducer: appReducer, state: nil, middleware: [])
 
 
 // View stuffs -----------------------
