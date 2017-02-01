@@ -9,22 +9,24 @@ import ReSwift
 // PRESENTER
 // ----------------------------------------------------------------------
 
-protocol Presenter: StoreSubscriber {
-    associatedtype ViewModel
-    
-    var updateView: ((ViewModel) -> ())? {get set}
-    
-    func viewModel(for state: StoreSubscriberStateType) -> ViewModel
+protocol ViewModelable {
+    associatedtype VM
+    func viewModel() -> VM
 }
 
-extension Presenter {
-    func newState(state: Self.StoreSubscriberStateType) {
-        print("> Presenter: newState")
 
-        updateView!(viewModel(for: state))
+class Presenter<S: ViewModelable, VM>: StoreSubscriber  where S.VM == VM {
+    
+    typealias StoreSubscriberStateType = S
+    typealias State = S
+    typealias ViewModel = VM
+    
+    final internal var updateView: ((VM) -> ())?
+    
+    final func newState(state: S) {
+        updateView!(state.viewModel())
     }
 }
-
 
 // ----------------------------------------------------------------------
 // VIEW CONTROLLER
@@ -65,19 +67,16 @@ extension ConfigurableView where Self: UIViewController {
 struct MatchCalendarState: StateType {
     let title: String
 }
-struct MatchCalendarViewModel {
-    let title: String
+
+extension MatchCalendarState: ViewModelable {
+    typealias VM = MatchCalendarViewModel
+    func viewModel() -> MatchCalendarViewModel {
+        return MatchCalendarViewModel(title: title)
+    }
 }
 
-class MatchCalendarPresenter: Presenter {
-    typealias StoreSubscriberStateType = MatchCalendarState
-    typealias ViewModel = MatchCalendarViewModel
-    
-    internal var updateView: ((MatchCalendarViewModel) -> ())?
-
-    internal func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
-        return MatchCalendarViewModel(title: state.title)
-    }
+struct MatchCalendarViewModel {
+    let title: String
 }
 
 class MatchCalendarViewController: UIViewController, ConfigurableView {
@@ -106,12 +105,12 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 class MatchCalendarFactory {
 
     typealias MatchCalendarModule = (
-        presenter: MatchCalendarPresenter,
+        presenter: Presenter<MatchCalendarState, MatchCalendarViewModel>,
         viewController: MatchCalendarViewController
     )
 
     static func create(with store: Store<AppState>) -> MatchCalendarModule {
-        let presenter = MatchCalendarPresenter()
+        let presenter = Presenter<MatchCalendarState, MatchCalendarViewModel>()
         let viewController = MatchCalendarViewController()
 
         presenter.updateView = viewController.update(with:)
