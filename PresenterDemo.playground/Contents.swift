@@ -45,7 +45,7 @@ protocol ConfigurableView: ViewType {
 extension ConfigurableView where Self: UIViewController {
 
     func update(with viewModel: ViewModelType) {
-        print("> ViewController: update(with: VM) - ConfigurableView Extension")
+        print("> ViewController: updateVM")
 
         self.viewModel = viewModel
 
@@ -87,9 +87,8 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
     internal var viewModel: MatchCalendarViewModel?
 
     override func viewDidLoad() {
-        print("> ViewController: viewDidload")
-
         super.viewDidLoad()
+        print("> ViewController: viewDidload")
 
         view.frame = CGRect(
             x: 0, y: 0, width: 320, height: 480)
@@ -100,7 +99,7 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 
     func configureView() {
         let title = viewModel?.title ?? "nil vm"
-        print("> ViewController: configureView title \(title)")
+        print("> ViewController: configureView \(title)")
     }
 }
 
@@ -142,7 +141,7 @@ func appReducer(action: Action, state: AppState?) -> AppState {
         title = titleAction.title
     }
     
-    print("> Reducer: title \(title)")
+    print("> Reducer: \(title)")
     return AppState(calendar: MatchCalendarState(title: title))
 }
 
