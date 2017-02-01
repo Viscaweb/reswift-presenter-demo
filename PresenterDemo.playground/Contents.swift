@@ -5,63 +5,6 @@ import PlaygroundSupport
 import ReSwift
 
 
-// ----------------------------------------------------------------------
-// PRESENTER
-// ----------------------------------------------------------------------
-
-protocol Presenter: StoreSubscriber {
-    associatedtype ViewModel
-    
-    var updateView: ((ViewModel) -> ())? {get set}
-    
-    func viewModel(for state: StoreSubscriberStateType) -> ViewModel
-}
-
-extension Presenter {
-    func newState(state: Self.StoreSubscriberStateType) {
-        print("> Presenter: newState")
-
-        updateView!(viewModel(for: state))
-    }
-}
-
-
-// ----------------------------------------------------------------------
-// VIEW CONTROLLER
-// ----------------------------------------------------------------------
-
-protocol ViewType: class {
-    associatedtype ViewModelType
-
-    func update(with viewModel: ViewModelType)
-}
-
-protocol ConfigurableView: ViewType {
-    var viewModel: ViewModelType? {get set}
-
-    func configureView()
-}
-
-extension ConfigurableView where Self: UIViewController {
-
-    func update(with viewModel: ViewModelType) {
-        print("> ViewController: updateVM")
-
-        self.viewModel = viewModel
-
-        guard isViewLoaded else {
-            return
-        }
-
-        configureView()
-    }
-}
-
-
-// ----------------------------------------------------------------------
-// IMPLEMENTATIONS
-// ----------------------------------------------------------------------
-
 struct MatchCalendarState: StateType {
     let title: String
 }
