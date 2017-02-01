@@ -9,28 +9,15 @@ import ReSwift
 // PRESENTER
 // ----------------------------------------------------------------------
 
-protocol ViewUpdater {
-    associatedtype State
+protocol PresenterProtocol: StoreSubscriber {
     associatedtype ViewModel
     
     var updateView: ((ViewModel) -> ())? {get set}
-    
-    func viewModel(for state: State) -> ViewModel
+    func viewModel(for state: StoreSubscriberStateType) -> ViewModel
 }
 
-class Presenter<S, VM>: StoreSubscriber, ViewUpdater {
-
-    typealias StoreSubscriberStateType = S
-    typealias State = S
-    typealias ViewModel = VM
-    
-    final internal var updateView: ((VM) -> ())?
-    
-    func viewModel(for state: State) -> ViewModel {
-        fatalError("must override")
-    }
-    
-    final func newState(state: State) {
+extension PresenterProtocol {
+    func newState(state: Self.StoreSubscriberStateType) {
         updateView!(viewModel(for: state))
     }
 }
@@ -79,9 +66,13 @@ struct MatchCalendarViewModel {
     let title: String
 }
 
-class MatchCalendarPresenter: Presenter<MatchCalendarState, MatchCalendarViewModel> {
+class MatchCalendarPresenter: PresenterProtocol {
+    typealias StoreSubscriberStateType = MatchCalendarState
+    typealias ViewModel = MatchCalendarViewModel
+    
+    internal var updateView: ((MatchCalendarViewModel) -> ())?
 
-    override func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
+    internal func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
         return MatchCalendarViewModel(title: state.title)
     }
 }
