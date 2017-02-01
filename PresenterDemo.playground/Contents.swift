@@ -9,14 +9,14 @@ import ReSwift
 // PRESENTER
 // ----------------------------------------------------------------------
 
-protocol PresenterProtocol: StoreSubscriber {
+protocol Presenter: StoreSubscriber {
     associatedtype ViewModel
     
     var updateView: ((ViewModel) -> ())? {get set}
     func viewModel(for state: StoreSubscriberStateType) -> ViewModel
 }
 
-extension PresenterProtocol {
+extension Presenter {
     func newState(state: Self.StoreSubscriberStateType) {
         updateView!(viewModel(for: state))
     }
@@ -66,7 +66,7 @@ struct MatchCalendarViewModel {
     let title: String
 }
 
-class MatchCalendarPresenter: PresenterProtocol {
+class MatchCalendarPresenter: Presenter {
     typealias StoreSubscriberStateType = MatchCalendarState
     typealias ViewModel = MatchCalendarViewModel
     
