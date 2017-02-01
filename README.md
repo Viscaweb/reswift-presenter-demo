@@ -39,3 +39,20 @@ The `ViewController` could have a public `state` property of `ViewModel` type th
 the `Presenter` will change. The `ViewController` will be responsible of observing both
 this `state` property and also the `viewLoaded` property. Whenever `state` change and `viewLoaded`
 is true, then the render of the view should happen.
+
+# Subsribing & unsubscribing
+
+### Problem
+
+Having too many subscribers can affect performances. Only module that are on screen
+should be subscribing.
+
+### Solution [WIP]
+
+Subscribe to a `FeatureStore` from the `ViewController`. This store is not like
+the ReSwift store. It would work with the `Presenter` in order to
+send to the `ViewController` not the `AppState` but the `ViewModel` it needs.
+Subscribing would happen in `viewWillAppear`.
+Unsubscribing would happen in `viewWillDisappear`.
+
+
