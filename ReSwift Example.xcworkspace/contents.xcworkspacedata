@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Volumes/Develop/GitRepos/Viscaweb/reswift-presenter-demo/PresenterDemo.playground">
+      location = "group:PresenterDemo.playground">
    </FileRef>
    <FileRef
       location = "group:ReSwift Example.xcodeproj">
@@ -12,5 +12,8 @@
    </FileRef>
    <FileRef
       location = "group:Carthage/Checkouts/ReSwift-Router/ReSwiftRouter.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
    </FileRef>
 </Workspace>
