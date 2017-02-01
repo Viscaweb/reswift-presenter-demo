@@ -14,6 +14,8 @@ protocol Presenter {
     associatedtype State
     associatedtype ViewModel
 
+    var updateView: ((ViewModel) -> ())? {get set}
+    
     func viewModel(for state: State) -> ViewModel
 }
 
@@ -37,7 +39,7 @@ protocol ConfigurableView: ViewType {
 extension ConfigurableView where Self: UIViewController {
 
     func update(with viewModel: ViewModelType) {
-        print("> ConfigurableView: update")
+        print("> ViewController: update(with: VM) - ConfigurableView Extension")
 
         self.viewModel = viewModel
 
@@ -54,22 +56,25 @@ extension ConfigurableView where Self: UIViewController {
 // IMPLEMENTATIONS
 // ----------------------------------------------------------------------
 
-struct MatchCalendarState {}
-struct MatchCalendarViewModel {}
+struct MatchCalendarState: StateType {
+    let title: String
+}
+struct MatchCalendarViewModel {
+    let title: String
+}
 
 class MatchCalendarPresenter: Presenter, StoreSubscriber {
 
-    var view: ((MatchCalendarViewModel) -> ())?
+    var updateView: ((MatchCalendarViewModel) -> ())?
 
     func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
-        return MatchCalendarViewModel()
+        return MatchCalendarViewModel(title: state.title)
     }
 
-    func newState(state: AppState) {
-        print("> Presenter: newState")
+    func newState(state: MatchCalendarState) {
+        print("> Presenter: newState title \(state.title)")
 
-        let viewModel = MatchCalendarViewModel()
-        view!(viewModel)
+        updateView!(viewModel(for: state))
     }
 }
 
@@ -87,12 +92,13 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
         view.frame = CGRect(
             x: 0, y: 0, width: 320, height: 480)
         view.backgroundColor = .white
+        
+        configureView()
     }
 
     func configureView() {
-        print("> ViewController: configureView")
-
-        // Pending implementation ...
+        let title = viewModel?.title ?? "nil vm"
+        print("> ViewController: configureView title \(title)")
     }
 }
 
@@ -107,9 +113,9 @@ class MatchCalendarFactory {
         let presenter = MatchCalendarPresenter()
         let viewController = MatchCalendarViewController()
 
-        presenter.view = viewController.update(with:)
-        store.subscribe(presenter)
-
+        presenter.updateView = viewController.update(with:)
+        store.subscribe(presenter) { $0.calendar }
+        
         return (presenter, viewController)
     }
 }
@@ -120,25 +126,30 @@ class MatchCalendarFactory {
 // ----------------------------------------------------------------------
 
 // ReSwift stuffs -----------------------
-struct DummyAction: Action {}
+struct SetTitleAction: Action {
+    let title: String
+}
 
 struct AppState: StateType {
     let calendar: MatchCalendarState
 }
 
+let initialState = AppState(calendar: MatchCalendarState(title: "bla"))
 func appReducer(action: Action, state: AppState?) -> AppState {
-    return AppState(calendar: MatchCalendarState())
+    if let titleAction = action as? SetTitleAction {
+        return AppState(calendar: MatchCalendarState(title: titleAction.title))
+    }
+    
+    return initialState
 }
 
-let initialState = AppState(calendar: MatchCalendarState())
 
 let store = Store(reducer: appReducer, state: initialState, middleware: [])
 
 
 // View stuffs -----------------------
 let module = MatchCalendarFactory.create(with: store)
-
-
 PlaygroundPage.current.liveView = module.viewController
 
-
+sleep(1)
+store.dispatch(SetTitleAction(title: "NEW"))
