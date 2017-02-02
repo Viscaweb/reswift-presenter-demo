@@ -43,20 +43,20 @@ extension ConfigurableView where Self: UIViewController {
 // PRESENTER
 // ----------------------------------------------------------------------
 
-protocol MapperType {
+protocol ViewAdapter {
     associatedtype State
     associatedtype View: ViewType
     func viewModel(for state: State) -> View.ViewModel
 }
 
-class Presenter<M: MapperType>: StoreSubscriber  {
-    typealias State = M.State
-    typealias View  = M.View
+class Presenter<Adapter: ViewAdapter>: StoreSubscriber  {
+    typealias State = Adapter.State
+    typealias View  = Adapter.View
     
-    private let mapper: M
+    private let mapper: Adapter
     private weak var view: View! //weak to avoid retain cycle
     
-    init(mapper: M, view: View) {
+    init(mapper: Adapter, view: View) {
         self.mapper = mapper
         self.view = view
     }
@@ -74,14 +74,14 @@ class Presenter<M: MapperType>: StoreSubscriber  {
 // INTERACTOR
 // ----------------------------------------------------------------------
 
-class Interactor<M: MapperType> {
-    typealias SelectedState = M.State
+class Interactor<Adapter: ViewAdapter> {
+    typealias SelectedState = Adapter.State
     
-    private let presenter: Presenter<M>
+    private let presenter: Presenter<Adapter>
     private let store: Store<AppState>
     private let stateSelector: ((AppState) -> SelectedState)?
 
-    init(presenter: Presenter<M>, store: Store<AppState>, stateSelector: ((AppState) -> SelectedState)? = nil) {
+    init(presenter: Presenter<Adapter>, store: Store<AppState>, stateSelector: ((AppState) -> SelectedState)? = nil) {
         self.presenter = presenter
         self.store = store
         self.stateSelector = stateSelector
@@ -99,9 +99,9 @@ class Interactor<M: MapperType> {
         store.dispatch(action)
     }
     
-//    func dispatch(_ actionCreator: Store<AppState>.ActionCreator) {
-//        store.dispatch(actionCreator)
-//    }
+    func dispatch(_ actionCreator: @escaping Store<AppState>.ActionCreator) {
+        store.dispatch(actionCreator)
+    }
 }
 
 
@@ -117,7 +117,7 @@ struct MatchCalendarViewModel {
     let title: String
 }
 
-struct MatchCalendarMapper: MapperType {
+struct MatchCalendarAdapter: ViewAdapter {
     typealias State = MatchCalendarState
     typealias View = MatchCalendarViewController
     
@@ -127,11 +127,9 @@ struct MatchCalendarMapper: MapperType {
 }
 
 class MatchCalendarViewController: UIViewController, ConfigurableView {
-
     typealias ViewModel = MatchCalendarViewModel
 
     internal var viewModel: MatchCalendarViewModel?
-
     var interactor: MatchCalendarInteractor!
     
     override func viewDidLoad() {
@@ -151,26 +149,12 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
     }
 }
 
-//protocol ModuleFactory {
-//    associatedtype State: StateType
-//    associatedtype View: ViewType
-//    associatedtype Store: StoreType
-//    
-//    func createViewController(store: Store) -> UIViewController
-//}
-
-class ModuleFactory<State: StateType, View: ViewType, Store: StoreType> {
-    func createViewController(view: View, store: Store) {
-        
-    }
-}
-
-typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper>
+typealias MatchCalendarInteractor = Interactor<MatchCalendarAdapter>
 
 class MatchCalendarFactory {
 
     static func createViewController(with store: Store<AppState>) -> UIViewController {
-        let mapper = MatchCalendarMapper()
+        let mapper = MatchCalendarAdapter()
         let viewController = MatchCalendarViewController()
         let presenter = Presenter(mapper: mapper, view: viewController)
         let interactor = Interactor(presenter: presenter, store: store) { $0.calendar }
@@ -204,10 +188,12 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 }
 
 
-// Execution -----------------------
+// Instantiation -----------------------
 let store = Store(reducer: appReducer, state: nil, middleware: [])
 let viewController = MatchCalendarFactory.createViewController(with: store)
-PlaygroundPage.current.liveView = viewController
 
+// Execution -----------------------
+PlaygroundPage.current.liveView = viewController
 sleep(1)
 store.dispatch(SetTitleAction(title: "NEW"))
+PlaygroundPage.current.finishExecution()
