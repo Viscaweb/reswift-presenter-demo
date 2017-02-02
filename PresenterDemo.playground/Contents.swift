@@ -9,22 +9,27 @@ import ReSwift
 // PRESENTER
 // ----------------------------------------------------------------------
 
-protocol ViewModelable {
-    associatedtype VM
-    func viewModel() -> VM
+protocol Mapper {
+    associatedtype State
+    associatedtype ViewModel
+    func viewModel(for state: State) -> ViewModel
 }
 
 
-class Presenter<S: ViewModelable, VM>: StoreSubscriber  where S.VM == VM {
+class Presenter<M: Mapper>: StoreSubscriber {
     
-    typealias StoreSubscriberStateType = S
-    typealias State = S
-    typealias ViewModel = VM
+    typealias StoreSubscriberStateType = M.State
+    typealias State = M.State
+    typealias ViewModel = M.ViewModel
     
-    final internal var updateView: ((VM) -> ())?
+    final internal var updateView: ((ViewModel) -> ())?
     
-    final func newState(state: S) {
-        updateView!(state.viewModel())
+    private let mapper: M
+    init(mapper: M) {
+        self.mapper = mapper
+    }
+    final func newState(state: State) {
+        updateView!(mapper.viewModel(for: state))
     }
 }
 
@@ -68,15 +73,25 @@ struct MatchCalendarState: StateType {
     let title: String
 }
 
-extension MatchCalendarState: ViewModelable {
-    typealias VM = MatchCalendarViewModel
-    func viewModel() -> MatchCalendarViewModel {
-        return MatchCalendarViewModel(title: title)
-    }
-}
+//extension MatchCalendarState: ViewModelable {
+//    typealias VM = MatchCalendarViewModel
+//    func viewModel() -> MatchCalendarViewModel {
+//        return MatchCalendarViewModel(title: title)
+//    }
+//}
+
 
 struct MatchCalendarViewModel {
     let title: String
+}
+
+struct MatchCalendarMapper: Mapper {
+    typealias State = MatchCalendarState
+    typealias ViewModel = MatchCalendarViewModel
+    
+    func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
+        return MatchCalendarViewModel(title: state.title)
+    }
 }
 
 class MatchCalendarViewController: UIViewController, ConfigurableView {
@@ -98,21 +113,20 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 
     func configureView() {
         let title = viewModel?.title ?? "nil vm"
-        print("> ViewController: configureView \(title)")
+        print("> ViewController: configureView \(title)\n")
     }
 }
 
 class MatchCalendarFactory {
 
     typealias MatchCalendarModule = (
-        presenter: Presenter<MatchCalendarState, MatchCalendarViewModel>,
+        presenter: Presenter<MatchCalendarMapper>,
         viewController: MatchCalendarViewController
     )
 
     static func create(with store: Store<AppState>) -> MatchCalendarModule {
-        let presenter = Presenter<MatchCalendarState, MatchCalendarViewModel>()
+        let presenter = Presenter<MatchCalendarMapper>(mapper: MatchCalendarMapper())
         let viewController = MatchCalendarViewController()
-
         presenter.updateView = viewController.update(with:)
         store.subscribe(presenter) { $0.calendar }
         
