@@ -45,20 +45,18 @@ extension ConfigurableView where Self: UIViewController {
 
 protocol MapperType {
     associatedtype State
-    associatedtype ViewModel
-    func viewModel(for state: State) -> ViewModel
+    associatedtype View: ViewType
+    func viewModel(for state: State) -> View.ViewModel
 }
 
-
-class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel == V.ViewModel {
-    typealias StoreSubscriberStateType = M.State
+class Presenter<M: MapperType>: StoreSubscriber  {
     typealias State = M.State
-    typealias ViewModel = M.ViewModel
+    typealias View  = M.View
     
     private let mapper: M
-    private weak var view: V! //weak to avoid retain cycle
+    private weak var view: View! //weak to avoid retain cycle
     
-    init(mapper: M, view: V) {
+    init(mapper: M, view: View) {
         self.mapper = mapper
         self.view = view
     }
@@ -76,12 +74,12 @@ class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel =
 // INTERACTOR
 // ----------------------------------------------------------------------
 
-class Interactor<M: MapperType, V: ViewType, SelectedState: StateType> where M.ViewModel == V.ViewModel, M.State == SelectedState {
-    private let presenter: Presenter<M, V>
+class Interactor<M: MapperType, SelectedState: StateType> where M.State == SelectedState {
+    private let presenter: Presenter<M>
     private let store: Store<AppState>
     private let stateSelector: ((AppState) -> SelectedState)?
 
-    init(presenter: Presenter<M, V>, store: Store<AppState>, stateSelector: ((AppState) -> SelectedState)? = nil) {
+    init(presenter: Presenter<M>, store: Store<AppState>, stateSelector: ((AppState) -> SelectedState)? = nil) {
         self.presenter = presenter
         self.store = store
         self.stateSelector = stateSelector
@@ -119,7 +117,7 @@ struct MatchCalendarViewModel {
 
 struct MatchCalendarMapper: MapperType {
     typealias State = MatchCalendarState
-    typealias ViewModel = MatchCalendarViewModel
+    typealias View = MatchCalendarViewController
     
     func viewModel(for state: MatchCalendarState) -> MatchCalendarViewModel {
         return MatchCalendarViewModel(title: state.title)
@@ -165,7 +163,7 @@ class ModuleFactory<State: StateType, View: ViewType, Store: StoreType> {
     }
 }
 
-typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper, MatchCalendarViewController, MatchCalendarState>
+typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper, MatchCalendarState>
 
 class MatchCalendarFactory {
 
