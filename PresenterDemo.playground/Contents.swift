@@ -12,7 +12,6 @@ import ReSwift
 /// what the presenter knows about
 protocol ViewType: class {
     associatedtype ViewModel
-    
     func update(with viewModel: ViewModel)
 }
 
@@ -57,7 +56,7 @@ class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel =
     typealias ViewModel = M.ViewModel
     
     private let mapper: M
-    private let view: V
+    private weak var view: V! //weak to avoid retain cycle
     
     init(mapper: M, view: V) {
         self.mapper = mapper
@@ -70,6 +69,39 @@ class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel =
     }
 }
 
+
+
+// ----------------------------------------------------------------------
+// INTERACTOR
+// ----------------------------------------------------------------------
+
+class Interactor<M: MapperType, V: ViewType, SelectedState: StateType> where M.ViewModel == V.ViewModel, M.State == SelectedState {
+    private let presenter: Presenter<M, V>
+    private let store: Store<AppState>
+    private let stateSelector: ((AppState) -> SelectedState)?
+
+    init(presenter: Presenter<M, V>, store: Store<AppState>, stateSelector: ((AppState) -> SelectedState)? = nil) {
+        self.presenter = presenter
+        self.store = store
+        self.stateSelector = stateSelector
+    }
+    
+    func subscribe() {
+        store.subscribe(presenter, selector: stateSelector)
+    }
+    
+    func unsubscribe() {
+        store.unsubscribe(presenter)
+    }
+    
+    func dispatch(_ action: Action) {
+        store.dispatch(action)
+    }
+    
+//    func dispatch(_ actionCreator: Store<AppState>.ActionCreator) {
+//        store.dispatch(actionCreator)
+//    }
+}
 
 
 // ----------------------------------------------------------------------
@@ -99,6 +131,8 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
 
     internal var viewModel: MatchCalendarViewModel?
 
+    var interactor: MatchCalendarInteractor!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("> ViewController: viewDidload")
@@ -116,21 +150,31 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
     }
 }
 
+//protocol ModuleFactory {
+//    associatedtype State: StateType
+//    associatedtype View: ViewType
+//    associatedtype Store: StoreType
+//    
+//    func createViewController(store: Store) -> UIViewController
+//}
+
+class ModuleFactory<State: StateType, View: ViewType, Store: StoreType> {
+    func createViewController(view: View, store: Store) {
+        
+    }
+}
+
+typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper, MatchCalendarViewController, MatchCalendarState>
+
 class MatchCalendarFactory {
 
-    typealias MatchCalendarModule = (
-        presenter: Presenter<MatchCalendarMapper, MatchCalendarViewController>,
-        viewController: MatchCalendarViewController
-    )
-
-    static func create(with store: Store<AppState>) -> MatchCalendarModule {
+    static func createViewController(with store: Store<AppState>) -> UIViewController {
         let mapper = MatchCalendarMapper()
         let viewController = MatchCalendarViewController()
         let presenter = Presenter(mapper: mapper, view: viewController)
-        
-        store.subscribe(presenter) { $0.calendar }
-        
-        return (presenter, viewController)
+        let interactor = Interactor(presenter: presenter, store: store) { $0.calendar }
+        viewController.interactor = interactor
+        return viewController
     }
 }
 
@@ -161,8 +205,8 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 
 // Execution -----------------------
 let store = Store(reducer: appReducer, state: nil, middleware: [])
-let module = MatchCalendarFactory.create(with: store)
-PlaygroundPage.current.liveView = module.viewController
+let viewController = MatchCalendarFactory.createViewController(with: store)
+PlaygroundPage.current.liveView = viewController
 
 sleep(1)
 store.dispatch(SetTitleAction(title: "NEW"))
