@@ -6,36 +6,6 @@ import ReSwift
 
 
 // ----------------------------------------------------------------------
-// PRESENTER
-// ----------------------------------------------------------------------
-
-protocol MapperType {
-    associatedtype State
-    associatedtype ViewModel
-    func viewModel(for state: State) -> ViewModel
-}
-
-
-class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel == V.ViewModel {
-    typealias StoreSubscriberStateType = M.State
-    typealias State = M.State
-    typealias ViewModel = M.ViewModel
-    
-    private let mapper: M
-    private let view: V
-    
-    init(mapper: M, view: V) {
-        self.mapper = mapper
-        self.view = view
-    }
-    
-    final func newState(state: State) {
-        let viewModel = mapper.viewModel(for: state)
-        view.update(with: viewModel)
-    }
-}
-
-// ----------------------------------------------------------------------
 // VIEW
 // ----------------------------------------------------------------------
 
@@ -65,6 +35,39 @@ extension ConfigurableView where Self: UIViewController {
         configureView()
     }
 }
+
+
+
+// ----------------------------------------------------------------------
+// PRESENTER
+// ----------------------------------------------------------------------
+
+protocol MapperType {
+    associatedtype State
+    associatedtype ViewModel
+    func viewModel(for state: State) -> ViewModel
+}
+
+
+class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel == V.ViewModel {
+    typealias StoreSubscriberStateType = M.State
+    typealias State = M.State
+    typealias ViewModel = M.ViewModel
+    
+    private let mapper: M
+    private let view: V
+    
+    init(mapper: M, view: V) {
+        self.mapper = mapper
+        self.view = view
+    }
+    
+    final func newState(state: State) {
+        let viewModel = mapper.viewModel(for: state)
+        view.update(with: viewModel)
+    }
+}
+
 
 
 // ----------------------------------------------------------------------
