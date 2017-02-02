@@ -71,20 +71,12 @@ class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel =
 
 
 // ----------------------------------------------------------------------
-// IMPLEMENTATIONS
+// IMPLEMENTATIONS: MatchCalendar Module
 // ----------------------------------------------------------------------
 
 struct MatchCalendarState: StateType {
     let title: String
 }
-
-//extension MatchCalendarState: ViewModelable {
-//    typealias VM = MatchCalendarViewModel
-//    func viewModel() -> MatchCalendarViewModel {
-//        return MatchCalendarViewModel(title: title)
-//    }
-//}
-
 
 struct MatchCalendarViewModel {
     let title: String
@@ -145,7 +137,7 @@ class MatchCalendarFactory {
 // DEMO
 // ----------------------------------------------------------------------
 
-// ReSwift stuffs -----------------------
+// ReSwift stuff -----------------------
 struct SetTitleAction: Action {
     let title: String
 }
@@ -165,10 +157,8 @@ func appReducer(action: Action, state: AppState?) -> AppState {
 }
 
 
+// Execution -----------------------
 let store = Store(reducer: appReducer, state: nil, middleware: [])
-
-
-// View stuffs -----------------------
 let module = MatchCalendarFactory.create(with: store)
 PlaygroundPage.current.liveView = module.viewController
 
