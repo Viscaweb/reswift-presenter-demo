@@ -64,6 +64,7 @@ class Presenter<M: MapperType, V: ViewType>: StoreSubscriber where M.ViewModel =
     }
     
     final func newState(state: State) {
+        print("> Presenter: newState")
         let viewModel = mapper.viewModel(for: state)
         view.update(with: viewModel)
     }
@@ -141,7 +142,7 @@ class MatchCalendarViewController: UIViewController, ConfigurableView {
             x: 0, y: 0, width: 320, height: 480)
         view.backgroundColor = .white
         
-        configureView()
+        interactor.subscribe()
     }
 
     func configureView() {
