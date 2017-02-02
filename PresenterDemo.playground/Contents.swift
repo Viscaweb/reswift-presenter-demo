@@ -9,12 +9,14 @@ import ReSwift
 // VIEW
 // ----------------------------------------------------------------------
 
+/// what the presenter knows about
 protocol ViewType: class {
     associatedtype ViewModel
     
     func update(with viewModel: ViewModel)
 }
 
+/// what the view controller conforms to
 protocol ConfigurableView: ViewType {
     var viewModel: ViewModel? {get set}
     
