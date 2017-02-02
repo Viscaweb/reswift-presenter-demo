@@ -74,7 +74,9 @@ class Presenter<M: MapperType>: StoreSubscriber  {
 // INTERACTOR
 // ----------------------------------------------------------------------
 
-class Interactor<M: MapperType, SelectedState: StateType> where M.State == SelectedState {
+class Interactor<M: MapperType> {
+    typealias SelectedState = M.State
+    
     private let presenter: Presenter<M>
     private let store: Store<AppState>
     private let stateSelector: ((AppState) -> SelectedState)?
@@ -163,7 +165,7 @@ class ModuleFactory<State: StateType, View: ViewType, Store: StoreType> {
     }
 }
 
-typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper, MatchCalendarState>
+typealias MatchCalendarInteractor = Interactor<MatchCalendarMapper>
 
 class MatchCalendarFactory {
 
